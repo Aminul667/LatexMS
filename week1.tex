@@ -1,0 +1,73 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts,amsmath,amssymb,suetterl}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage[utf8]{inputenc}
+
+\usepackage{fontawesome}
+\DeclareUnicodeCharacter{2212}{-}
+\usepackage{mathrsfs}
+
+\usepackage[nodisplayskipstretch]{setspace}
+
+\setstretch{1.5}
+\setlength{\headheight}{15.2pt}
+
+\pagestyle{fancy}
+\fancyfoot[C]{\thepage}
+\fancyfoot[L]{Course Organizer: R. J. HARRIS}
+\fancyfoot[R]{rosemary.harris@qmul.ac.uk}
+
+% \renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0pt}
+\parindent 0ex
+\setlength{\parskip}{1em}
+
+\begin{document}
+  \textbf{MTH734U/MTHM012} \hfill \textbf{Mathematical Sciences}\\
+  \textbf{Semester B 2010 - 2011} \hfill \textbf{QMUL}
+  \begin{center}
+    \textbf{\Huge Week 1}
+  \end{center}
+  \hrule \vspace{2mm} \hrule
+  \section*{Key Objective:}
+  \textit{Be familiar with the basic notions Of probability including: definition of a stochastic process, distributions of discrete and continuous random formula variables, calculation of expectation values, convolution formula for distribution of a sum}.
+  \section*{Background:}
+  Please use this week to recap basic probability concepts which you have covered in Probability II (or a equivalent course elsewhere). Use the lecture notes as a guide to what you need to know and read as necessary the relevant parts Of Chapters 1 and 2 of Taylor and Karlin, "An Introduction to Stochastic Modeling" [TA-Kl. Next week, amongst other things, we will utilize convolution formulae (cf. [T+KI Sec. 1.2.5) and the 'trick" with tail probabilities (see [T+KI Sec. 1.5.1). The 'Exercises" in [T+KI (answers at the back of the book) are short questions which provide a good diagnostic tool to check you understand things - I recommend you do a selection of those in Chapters 1 and 2 corresponding to the to topics you feel less confident about. The problems overleaf are of increasing difficulty; note that on these sheets indicates a particularly challenging (sub) question.
+  \section*{Problems:}
+  \begin{enumerate}
+    \item \textbf{Random heating}\\
+    Let $B$ be the the number of working boilers discrete in the Mathematics Building. Assume $B$ is a random variable having possible values 0, 1, and 2 and probability mass function
+    \begin{align*}
+      p(0) &= \frac{1}{10},\\
+      p(1) &= \frac{3}{5},\\
+      p(2) &= \frac{3}{10}.
+    \end{align*}
+    \begin{enumerate}
+      \item Plot the corresponding distribution function.
+      \item Determine the mean and variance of B.
+    \end{enumerate}
+    \item \textbf{Gamma distribution:}\\
+    Consider a random variable $X$ with the probability density function
+    $$
+    f_X(x) = a^2xe^{-ax} \quad \text{for $x > 0$}
+    $$
+    where $a$ is a positive parameter. (This is a case of the Gamma distribution and will also be important later in the course.)
+    \begin{enumerate}
+      \item Sketch $f_X(x)$, Where is its maximum?
+      \item Find the mean and variance of $X$.
+      \item Calculate the Laplace transform
+      $$
+        \hat{F}_X(\lambda) = E[e^{-\lambda X}].
+      $$
+      \item Now consider a second random variable $Y$ which is drawn independently from the same distribution (i.e, $f_Y(y) = a^2ye^{-ay} \quad \text{for $y > 0$}$). Use convolution to find the probability density function of the sum $Z = X + Y$.
+    \end{enumerate}
+    \item \textbf{More practice with Laplace Transforms:}\\
+    \begin{enumerate}
+      \item Find $\hat{F}_X(\lambda)$ for the case $$dF_X(x) = e^{ax}dx.$$
+    \end{enumerate}
+  \end{enumerate}
+\end{document}
