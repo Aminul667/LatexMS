@@ -1,6 +1,7 @@
-mainbook.aux
-mainbook.fdb_latexmk
-mainbook.fls
-mainbook.log
-mainbook.synctex.gz
-mainbook.toc
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+*.toc
+*.pdf
