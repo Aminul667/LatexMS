@@ -246,7 +246,63 @@
     \begin{itemize}
       \item Base case $n = 1$ given by (2.9).
       \item Assume proposition is true for $n = k$. Then, for $x > 0$,
+      \begin{align*}
+        f_{k + 1}(x)
+        &= \int_0^xf_k(x - y)f(y)dy\\
+        &= \int_0^x\frac{(x - y)^{2k - 1}e^{-(x - y)}}{(2k - 1)!}ye^{-y}dy\quad \text{[by induction hypothesis]}\\
+        &= \frac{e^{-x}}{(2k - 1)!}\int_0^x(x - y)^{2k - 1}ydy\\
+        &= \frac{e^{-x}}{(2k - 1)}\int_0^xu^{2k - 1}(x - u)du\quad \text{[change variables $u = x - y$]}\\
+        &= \frac{e^{-x}}{(2k - 1)!}\left[\frac{xu^{2k}}{2k} - \frac{u^{2k + 1}}{2k + 1}\right]_{u = 0}^{u = x}\\
+        &= \frac{x^{2k + 1}e^{-x}}{(2k - 1)!}\left(\frac{1}{2k} - \frac{1}{2k + 1}\right)\\
+        &= \frac{x^{2k + 1}e^{-x}}{(2k + 1)!}
+      \end{align*}
+      So, if the proposition is true for $n = k$, it is also true for $n = k + 1$.
+      \item Hence, by induction, the proposition is true for all integer $n \geq 1$.
     \end{itemize}
-
+    Actually there is a quicker way to see this. Note that $f(x)$ of (2.9) is just the density of the sum of two independent exponentially-distributed random variables with parameter $\alpha = 1$ (cf. (2.2) with $n = 2$ and $\alpha = 1$). Hence, the required density of the sum of $n$ variables with this gamma distribution, is the same as the density of the sum of $2n$ exponentially-distributed variables. In other words we can get (2.11) from (2.2) by setting $\alpha = 1$ and replacing $n$ by $2n$.\par
+    Now we proceed as before:
+    \begin{equation}\tag{2.12}
+      \begin{aligned}[b]
+        M(t)
+        &= \sum_{n = 1}^\infty \int_0^tf_n(x)dx\\
+        &= \int_0^t \left(\sum_{n = 1}^\infty f_n(x)\right)dx\\
+        &= \int_0^t \left(e^{-x}\sum_{n = 1}^\infty \frac{x^{2n - 1}}{(2n - 1)!}\right)dx\\
+        &= \int_0^t\left(e^{-x}\frac{e^x - e^{-x}}{2}\right)dx\quad \text{[recognizing sum as series for $\sinh(x)$]}\\
+        &= \frac{1}{2}\int_0^t(1 - e^{-2x})dx\\
+        &= \frac{1}{2}\left[x + \frac{e^{-2x}}{2}\right]_{x = 0}^{x = t}\\
+        &= \frac{t}{2} - \frac{1}{4}(1 - e^{-2t}). 
+      \end{aligned}
+    \end{equation}
+    Of course we can get the same result using Laplace transforms. From Problem 2 on last week's problem sheet, we have
+    $$
+    \hat{F}(\lambda) = \frac{1}{(1 + \lambda)^2}
+    $$
+    and therefore
+    $$
+    \hat{F}_n(\lambda) = \frac{1}{(1 + \lambda)^{2n}}.
+    $$
+    [This result can also be obtained from (2.4) by setting $\alpha = 1$ and replacing $n$ by $2n$.] Again we sum over $n$ before doing the inverse Laplace transform:
+    \begin{align*}
+      \sum_{n = 1}^\infty \hat{F}_n(\lambda)
+      &= \sum_{n = 1}^\infty\left(\frac{1}{(1 + \lambda)^2}\right)^n\\
+      &= \frac{1}{(1 + \lambda)^2}\sum_{n = 0}^\infty\left(\frac{1}{(1 + \lambda)^2}\right)^n\\
+      &= \frac{1}{(1 + \lambda)^2}\times \frac{1}{1 - \left(\frac{1}{(1 + \lambda)^2}\right)}\\
+      &= \frac{1}{\lambda^2 + 2\lambda}\\
+      &= \frac{1}{2\lambda} - \frac{1}{2(\lambda + 2)}\quad\text{[partial fraction]}\\
+      &= \int_0^\infty e^{-\lambda x}\frac{1}{2}dx - \int_0^\infty e^{-(\lambda + 2)x}\frac{1}{2}dx\quad \text{[cf. (2.5)]}\\
+      &= \int_0^\infty e^{-\lambda x}\left(\frac{1}{2}(1 - e^{-2x})\right)dx.
+    \end{align*}
+    Hence
+    $$
+    \sum_{n = 0}^\infty f_n(x) = \frac{1}{2}(1 - e^{-2x}),
+    $$
+    and
+    \begin{align*}
+      M(t)
+      &= \int_0^\infty\left(\sum_{n = 1}^\infty f_n(x)\right)dx\\
+      &= \int_0^\infty \frac{1}{2}(1 - e^{-2x})dx\\
+      &= \frac{t}{2} - \frac{1}{4}(1 - e^{-2t}),
+    \end{align*}
+    in agreement with (2.12)
   \end{enumerate}
 \end{document}
