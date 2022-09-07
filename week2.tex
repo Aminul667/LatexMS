@@ -193,5 +193,60 @@
       \end{equation}
       Note the happy agreement between results (2.1), (2.3) and (2.6).
     \end{enumerate}
+    \item \textbf{Mean excess life}\\
+    First you need to prove
+    $$
+    E[W_{N(t) + 1}] = E[X_1]\{M(t) + 1\}.
+    $$
+    This is a standard derivation which was sketched in the lecture and can be found in full on pages 423-424 of $[T+K]$. \textit{You should be able to reproduce the steps}. (Note in particular the trick with indicator variables allowing the replacement of $N(t) + 1$ with $\infty$ in the upper limit of the sum.)\par
+    After this, it's easy. The excess life is defined as
+    $$
+    \gamma_t = W_{N(t) + 1} - t,
+    $$
+    so
+    \begin{equation}\tag{2.7}
+      \begin{aligned}[b]
+        E[\gamma_t]
+        &= E[W_{N(t) + 1}] - t\\
+        &= E[X_1]\{M(t) + 1\} - t
+      \end{aligned}
+    \end{equation}
+    For a Poisson process with parameter $\alpha$
+    \begin{align*}
+      \text{Pr}\{\gamma_t > x\}
+      &= \text{Pr}\{N(t + x) - N(t) = 0\}\quad \text{[probability of no renewals in interval $(t, t + x)$}\\
+      &= \text{Pr}\{N(x) - N(0) = 0\}\quad \text{[stationary independent increments]}\\
+      &= e^{-\alpha x}.
+    \end{align*}
+    So the mean excess life is given by
+    \begin{equation}\tag{2.8}
+      \begin{aligned}[b]
+        E[\gamma_t]
+        &= \int_0^\infty \text{Pr}\{\gamma_t > x\}dx\\
+        &= \int_0^\infty e^{-\alpha x}dx\\
+        &= \left[\frac{-e^{-\alpha x}}{\alpha}\right]_{x = 0}^{x = \infty}\\
+        &= \frac{1}{\alpha}.
+      \end{aligned}
+    \end{equation}
+    The fact that the excess life has the same distribution as the interoccurence times $X_k$ (and hence the same mean) is a statement of the memoryless property of the exponential distribution. With (2.8) and (2.1) to hand, the relation (2.7) is straightforwardly verified.
+    \item \textbf{Gamma density}\\
+    First let's do it without Laplace transforms, i.e., using the method of 1(b). We have
+    \begin{equation}\tag{2.9}
+      f_1(x) = f(x) = xe^{-x}\quad \text{for $x > 0$}
+    \end{equation}
+    and, from Problem 2 on last week's sheet (with $\alpha = 1$),
+    \begin{equation}\tag{2.10}
+      f_2(x) = \frac{x^3e^{-x}}{6}\quad \text{for $x > 0$}.
+    \end{equation}
+    We want to know $f_n(x)$. Inspection of (2.9) and (2.10) leads us to the proposition
+    \begin{equation}\tag{2.11}
+      f_n(x) = \frac{x^{2n - 1}e^{-x}}{(2n - 1)}\quad \text{for $x > 0$}
+    \end{equation}
+    which we prove by induction:
+    \begin{itemize}
+      \item Base case $n = 1$ given by (2.9).
+      \item Assume proposition is true for $n = k$. Then, for $x > 0$,
+    \end{itemize}
+
   \end{enumerate}
 \end{document}
