@@ -6,6 +6,7 @@
 \usepackage{fancyhdr}
 \usepackage{float}
 \usepackage[utf8]{inputenc}
+\usepackage{pgfplots}
 
 \usepackage{fontawesome}
 \DeclareUnicodeCharacter{2212}{-}
@@ -13,6 +14,7 @@
 
 \usepackage[nodisplayskipstretch]{setspace}
 
+\pgfplotsset{compat = newest}
 \setstretch{1.5}
 \setlength{\headheight}{15.2pt}
 
@@ -83,17 +85,50 @@
   \hrule \vspace{2mm} \hrule
   \section*{General comments:}
   In several places in this problem sheet (and elsewhere) the following identity is very useful:
-  $$
+  \begin{equation}\tag{1.1}
     \lambda^{-n} = \int_0^\infty e^{-\lambda x}\frac{x^{n-1}}{(n-1)!}dx\quad \text{for $n \geq 1$}.
-  $$
+  \end{equation}
   You can check this straightforwardly using integration by parts and induction.
   \section*{Solutions to Problems:}
   \begin{enumerate}
     \item \textbf{Random heating}\\
     This was a nice gentle "warm-up" exercise.
     \begin{enumerate}
-      \item The distribution function has the form:\\
-      \textbf{\Huge add figure}
+      \item The distribution function has the form:
+      \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}
+          \begin{axis}[
+              axis lines = left,
+              axis line style = {-latex, thick},
+              xtick = {1,...,5},
+              ytick = {1,...,10},
+              xticklabel = \empty,
+              yticklabel = \empty,
+              xmax = 6,
+              ymin = 0,
+              ymax = 11,
+              axis on top,
+              clip = false
+            ]
+              %marks
+              \addplot[color = black, mark = *, only marks, mark size = 2pt] coordinates {(0, 1) (1, 7) (2, 10)};
+              %lines
+              \addplot[color = black, thick] coordinates {(0, 1) (1, 1)};
+              \addplot[color = black, thick] coordinates {(1, 7) (2, 7)};
+              \addplot[color = black, thick] coordinates {(2, 10) (5, 10)};
+              %labels
+              \node [below right] at (6, 0){$b$};
+              \node [above left] at (0, 11) {$F_B(b)$};
+              \node [below] at (0, -0.15) {$0$};
+              \node [below] at (1, -0.15) {$1$};
+              \node [below] at (2, -0.15) {$2$};
+              \node [left] at (-0.15, 1) {$\frac{1}{10}$};
+              \node [left] at (-0.15, 7) {$\frac{7}{10}$};
+              \node [left] at (-0.15, 10) {$1$};
+            \end{axis}
+          \end{tikzpicture}
+        \end{figure}
       \item The mean is given by
       \begin{align*}
         E[B]
@@ -110,8 +145,38 @@
     \end{enumerate}
     \item \textbf{Gamma distribution}
     \begin{enumerate}
-      \item One can show by differentiation that the maximum is at $x = l/a$ so a sketch graph looks like:\\
-      \textbf{\Huge add figure}
+      \item One can show by differentiation that the maximum is at $x = l/a$ so a sketch graph looks like:
+      \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}
+          \begin{axis}[
+              xmin = 0, xmax = 2,
+              ymin = 0, ymax = 2,
+              axis lines = left,
+              xtick = \empty,
+              ytick = \empty,
+              xticklabel = \empty,
+              yticklabel = \empty,
+              axis on top,
+              clip = false
+            ]
+            % Plot a function
+            \addplot[
+              domain = 0:2,
+              samples = 200,
+              smooth,
+              thick,
+            ] {16*x*exp(-4*x)};
+            \addplot[color = black, thick] coordinates {(0.25, 0.05) (0.25, -0.05)};
+            \addplot[color = black, thick] coordinates {(0.05, 1.47) (-0.05, 1.47)};
+            %label
+            \node [below right] at (2, 0){$x$};
+            \node [above left] at (0, 2) {$f_X(x)$};
+            \node [below] at (0.25, -0.05){$\frac{1}{a}$};
+            \node [left] at (-0.05, 1.47){$\frac{a}{e}$};
+          \end{axis}
+        \end{tikzpicture}
+      \end{figure}
       \item The mean is given by
       \begin{align*}
         \mu
@@ -137,23 +202,27 @@
       \end{align*}
       Note that the question means "find" in the sense of calculate, not merely in the sense of look-up somewhere! Of course, one can also obtain the moments by calculating the moment generating function but that is not actually necessary for this part of the question, and is essentially equivalent to calculating the Laplace transform in (c). [Why?]
       \item The Laplace transform is
-      \begin{align*}
-        \hat{F}_X(\lambda)
-        &= E[e^{-\lambda X}]\\
-        &= \int_0^\infty e^{-\lambda x}f_X(x)dx\\
-        &= \int_0^\infty a^2xe^{-(a + \lambda)x}dx\\
-        &= \frac{a^2}{(a + \lambda)^2}.
-      \end{align*}
+      \begin{equation}\tag{1.2}
+        \begin{aligned}[b]
+          \hat{F}_X(\lambda)
+          &= E[e^{-\lambda X}]\\
+          &= \int_0^\infty e^{-\lambda x}f_X(x)dx\\
+          &= \int_0^\infty a^2xe^{-(a + \lambda)x}dx\\
+          &= \frac{a^2}{(a + \lambda)^2}.
+        \end{aligned}
+      \end{equation}
       [TO do the integral use parts or (1.1) again, or just observe that $\int_0^\infty(a + \lambda)^2\allowbreak xe^{-(a + \lambda)x}dx = 1$ since it is the integral over a proper probability distribution function.]
       \item Since $X$ and $Y$ are independent continuous random variables, the p.d.f. of their sum $Z$ is given by
-      \begin{align*}
-        f_Z(z)
-        &= \int_0^\infty f_X(z - y)f_Y(y)dy\\
-        &= \int_0^\infty a^2(z - y)e^{-a(z - y)}a^2ye^{-ay}dy\\
-        &= a^4e^{-az}\int_0^z(z - y)ydy\\
-        &= a^4e^{-az}\left[z\frac{y^2}{2} - \frac{y^3}{3}\right]_{y = 0}^{y = z}\\
-        &= \frac{a^4z^3e^{-az}}{6}.
-      \end{align*}
+      \begin{equation}\tag{1.3}
+        \begin{aligned}[b]
+          f_Z(z)
+          &= \int_0^\infty f_X(z - y)f_Y(y)dy\\
+          &= \int_0^\infty a^2(z - y)e^{-a(z - y)}a^2ye^{-ay}dy\\
+          &= a^4e^{-az}\int_0^z(z - y)ydy\\
+          &= a^4e^{-az}\left[z\frac{y^2}{2} - \frac{y^3}{3}\right]_{y = 0}^{y = z}\\
+          &= \frac{a^4z^3e^{-az}}{6}.
+        \end{aligned}
+      \end{equation}
       An alternative (and arguably nicer) route for non-negative random variables is to use Laplace transforms. Recall that the Laplace transform of a convolution is just the product of the individual transforms. Hence, using (1.2) we have:
       \begin{align*}
         \hat{F}_Z(\lambda)
@@ -184,13 +253,13 @@
       $$
       For $X \leq a$, we say that the Laplace transform does not exist.
       \item For $Y$ uniformly distributed over $(0, 1)$ we obviously have
-      $$
-      f_Y(y) =
-      \begin{cases}
-        1 & \text{if $0 < y < 1$}\\
-        0 & \text{otherwise}
-      \end{cases}
-      $$
+      \begin{equation}\tag{1.4}
+        f_Y(y) =
+        \begin{cases}
+          1 & \text{if $0 < y < 1$}\\
+          0 & \text{otherwise}
+        \end{cases}
+      \end{equation}
       Hence
       \begin{align*}
         E[e^{-\lambda Y}]
@@ -210,9 +279,9 @@
       \hat{F}_n(\lambda) = (\hat{F}(\lambda))^n.
       $$
       (Again this is just the statement that the Laplace transform of a convolution is the product of the Laplace transforms.) So if F is the uniform distribution of part (b) we have
-      $$
-      \hat{F}_n(\lambda) = \left(\frac{(1 - e^{-\lambda})}{\lambda}\right)^n.
-      $$
+      \begin{equation}\tag{1.5}
+        \hat{F}_n(\lambda) = \left(\frac{(1 - e^{-\lambda})}{\lambda}\right)^n.
+      \end{equation}
       As usual the hard bit is doing the inverse Laplace transform to get the density $f_n$. The first step is to use a binomial expansion to write (1.5) as
       $$
       \hat{F}_n(\lambda) = \sum_{k = 0}^n\binom{n}{k}(-1)^ke^{-\lambda k}\lambda^{-n}.
@@ -239,9 +308,9 @@
       \end{cases}
       $$
       Hence, using the notation $(A)_+$ for the positive part of $A$, the required density is
-      $$
-      f_n(y) = \sum_{k = 0}^n\binom{n}{k}(-1)^k\frac{(y - k)^{n - 1}_+}{(n - 1)!}
-      $$
+      \begin{equation}\tag{1.6}
+        f_n(y) = \sum_{k = 0}^n\binom{n}{k}(-1)^k\frac{(y - k)^{n - 1}_+}{(n - 1)!}
+      \end{equation}
       Note that this is the p.d.f. of the so-called C'Irwin-Hall distribution" and can also be written as
       $$
       f_n(y) = \frac{1}{2}\sum_{k = 0}^n\binom{n}{k}(-1)^k\frac{(y - k)^{n - 1}sgn(y - k)}{(n - 1)!}
