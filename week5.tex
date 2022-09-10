@@ -1,0 +1,141 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts,amsmath,amssymb,suetterl}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage[utf8]{inputenc}
+\usepackage{physics}
+\usepackage{fontawesome}
+\DeclareUnicodeCharacter{2212}{-}
+\usepackage{mathrsfs}
+\usepackage[nodisplayskipstretch]{setspace}
+
+\setstretch{1.5}
+\setlength{\headheight}{15.2pt}
+
+\pagestyle{fancy}
+\fancyfoot[C]{\thepage}
+\fancyfoot[L]{Course Organizer: R. J. HARRIS}
+\fancyfoot[R]{rosemary.harris@qmul.ac.uk}
+
+% \renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0pt}
+\parindent 0ex
+\setlength{\parskip}{1em}
+
+\begin{document}
+  \textbf{MTH734U/MTHM012} \hfill \textbf{Mathematical Sciences}\\
+  \textbf{Semester B 2010 - 2011} \hfill \textbf{QMUL}
+  \begin{center}
+    \textbf{\huge Week 5}
+  \end{center}
+  \hrule \vspace{2mm} \hrule
+  \section*{Key Objective:}
+  \textit{In the case of a discrete renewal process be able to use the renewal argument to derive the equation satisfied by the renewal function. Understand the form and solution of the general renewal equation.}
+  
+  \section*{Background:}
+  Please read Sec. VII.6 - VII.6.1 of [T+K] - bonus points for spotting the typos. (Ignore the population growth stuff in VII.6.2.) Discrete renewal processes are simply a special case of the general model discussed in previous weeks. However, because they are somewhat simpler, we delve a bit further into the formalism of renewal theory. As an example application, it's also worth (re)reading the block replacement example back in V11.2.2.\par
+  This week marks the end of Section A so please use any spare time to consolidate all the material on renewal phenomena. I've included two relatively straightforward exam questions overleaf; some more interesting questions (for the case of continuous lifetimes) with slightly different notation can be found on the papers from 2009 and 2010.
+
+  \section*{Problems:}
+  \begin{enumerate}
+    \item \textbf{Geometric distribution of lifetimes}\\
+    Do [T + K] Problem 6.1.
+    \item \textbf{Throwing a die}\\
+    Do [T + K] Problem 6.2.
+    \item \textbf{Question 5 from 2003 exam paper}\\
+    See overleaf.
+    \item \textbf{Question 6 from 2003 exam paper}\\
+    See overleaf.\par 
+    \textbf{(Hints available in tutorial on 16th February, solutions in tutorial on 23rd February)}
+    \item Let $\{N(t),\, t \geq 0\}$ be a continuous time renewal process with interarrival times $X_i$ which are independent and identically distributed. Let $W_n = X_1 + X_2 +\ldots + X_n$ be the waiting time until the occurrence of the nth event. Let $M(t) = \mathbb{E}N(t)$.
+    \begin{enumerate}
+      \item (\textit{6 marks}) Prove that
+      $$
+      M(t) = \sum_{n = 1}^\infty F_n(t)
+      $$
+      where $F_n(t) = \mathbb{P}(W_n \leq t)$.
+      \item (\textit{14 marks}) Prove that
+      $$
+      \mathbb{E}W_{N(t) + 1} = \mathbb{E}[X_1](M(t) + 1).
+      $$ 
+    \end{enumerate}
+    \item Let $\{N(n), n\geq 0\}$ be a discrete time renewal process with interarrival times $X_i$ which are independent and identically distributed with distribution $\mathbb{P}(X_i = k) = p_k$ for k 2 1. and cumulative distribution function $F_x(n) = \mathbb{P}(X_i \leq n)$.
+    \begin{enumerate}
+      \item \textit{(14 marks)} Prove that the renewal function $M(n) = \mathbb{E}N(n)$ solves the equation
+      $$
+      M(n) = F_X(n) + \sum_{k = 1}^{n - 1}p_kM(n - k)
+      $$
+      \item \textit{(6 marks)} Suppose that $p_1 = 0.1,\, p_2 = 0.2,\, p_3 = 0.6$, and$p_4 = 0.1$. Determine $M(n)$ for $n = 1,\, 2,\, 3$. Determine $\lim_{n\to\infty} \frac{M(n)}{n}$.
+    \end{enumerate}
+  \end{enumerate}
+  %
+  \newpage
+  \section*{General comments:}
+  The crucial step in discrete renewal theory is to condition on the first life Xl to construct a renewal equation, such as (5.1), (5.3) and (5.9) below. You should make sure you are happy with this type of "renewal argument".
+
+  \section*{Solutions to Problems:}
+  \begin{enumerate}
+    \item \textbf{Geometric distribution of lifetimes}\\
+    In this question, the lifrtimes $X_1, X_2,\ldots$ have the Geometric distribution, i.e.,
+    $$
+    p_k = \text{Pr}\{X_1 = k\} = \alpha(1 - \alpha)^{k - 1}\quad \text{for $k = 1, 2, \ldots$},
+    $$
+    where $0 < a < 1$. Notice that $p_0 = 0$ so that all the lifetimes are strictly positive. (This makes things much easier since at most one renewal can occur in any time period.)
+    \begin{enumerate}
+      \item To calculate $\{u_n\}$ we need to solve the particular renewal equation
+      \begin{equation}\tag{5.1}
+        u_n = \delta_n + \sum_{k = 0}^np_ku_{n - k}\quad \text{for $n = 0.1.\ldots$}
+      \end{equation}
+      where
+      $$
+      \delta_n =
+      \begin{cases}
+        1 & \text{for $n = 0$},\\
+        0 & \text{for n > 0}
+      \end{cases}
+      $$
+      [Note that "determine" in the question implies you can simply quote (5.1) but, of course, you should know how to derive it - see [T+K] page 459.1]\\
+      The renewal equation is easy to solve recursively. First note that for $n = 0$ we get $u_0 = 1$. This is true for any probability distribution with $p_0 = 0$; it's simply because we are counting the initial renewal which occurs at $t = 0$. Armed with knowledge of $u_0$, we can calculate
+      \begin{align*}
+        u_1
+        &= p_1u_0\\
+        &= \alpha \times 1\\
+        &= \alpha.
+      \end{align*}
+      Similarly,
+      \begin{align*}
+        u_2
+        &= p_1u_1 + p_2u_2\\
+        &= \alpha^2 + \alpha(1 - \alpha)\\
+        &= \alpha.
+      \end{align*}
+      Direct calculation also yields $u_3 = \alpha$, suggesting the proposition
+      \begin{equation}\tag{5.2}
+        u_n = \alpha\quad \text{for $n \geq 1$}.
+      \end{equation}
+      Indeed this is true as is easily proven by strong induction:
+      \begin{itemize}
+        \item Base case is $n = 1$ (already checked).
+        \item Assume proposition is true for $1 \leq n \leq m$ and consider the $n = m + 1$ case:
+        \begin{align*}
+          u_{m + 1}
+          &= \sum_{k = 0}^{m + 1}p_ku_{m + 1 - k}\\
+          &= \sum_{k = 1}^{m + 1}p_ku_{m + 1 - k}\quad \text{[since $p_0 = 0$]}\\
+          &= p_{m + 1} + \sum_{k = 1}^mp_k\alpha\quad \text{[using induction hypothesis]}\\
+          &= \alpha(1 - \alpha)^m + \sum_{k = 1}^m\alpha^2(1 - \alpha)^{k - 1}\\
+          &= \alpha(1 - \alpha)^m + \alpha^2\left[\frac{1 - (1 - \alpha)^m}{1 - (1 - \alpha)}\right]\quad \text{[geometric series]}\\
+          &= \alpha(1 - \alpha)^m + \alpha[1 - (1 - \alpha)^m]\\
+          &= \alpha.
+        \end{align*}
+        So, if the proposition is true for $1 \leq n \leq m$, it is also true for $n = m + 1$.
+        \item Hence, by induction, the proposition (5.2) is true for all integer $n \geq 1$. 
+      \end{itemize}
+      The geometric distribution can be thought of as the discrete analogue of the exponential distribution. The probability for renewal in a given time period is constant and $M(n) = \alpha n$ an for all integer $n$.
+      \item Let
+    \end{enumerate}
+
+  \end{enumerate}
+\end{document}
