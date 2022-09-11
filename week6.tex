@@ -1,0 +1,70 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts,amsmath,amssymb,suetterl}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage[utf8]{inputenc}
+\usepackage{physics}
+\usepackage{fontawesome}
+\DeclareUnicodeCharacter{2212}{-}
+\usepackage{mathrsfs}
+\usepackage[nodisplayskipstretch]{setspace}
+
+\setstretch{1.5}
+\setlength{\headheight}{15.2pt}
+
+\pagestyle{fancy}
+\fancyfoot[C]{\thepage}
+\fancyfoot[L]{Course Organizer: R. J. HARRIS}
+\fancyfoot[R]{rosemary.harris@qmul.ac.uk}
+
+% \renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0pt}
+\parindent 0ex
+\setlength{\parskip}{1em}
+
+\begin{document}
+  \textbf{MTH734U/MTHM012} \hfill \textbf{Mathematical Sciences}\\
+  \textbf{Semester B 2010 - 2011} \hfill \textbf{QMUL}
+  \begin{center}
+    \textbf{\huge Week 6}
+  \end{center}
+  \hrule \vspace{2mm} \hrule
+
+  \section*{Key Objective:}
+  \textit{Know the definition of a continuous-time Markov chain and the properties of the transition probability matrix. Understand the corresponding descriptions in terms of the infinitesimal matric (generator) and the sojourn times in the embedded discrete-time Markov chain.}
+
+  \section*{Background:}
+  Please read the first two and a half pages of Sec. V1.6 of [T + K] (page 394 until (6.7) on page 396). This provides a fairly gentle introduction to the set-up for continuous-time Markov chains, focusing on the case of finite state space. Make sure you understand both the infinitesimal matrix description and the sojourn description. After reading this part you may find it useful to consider the concrete example of a birth-death process (probably encountered in earlier courses) - I suggest reading Secs. VI.3.1—3.2 and thinking about how the birth-death model fits into the general framework (i.e., what the generator looks like, how the process is described in terms of sojourn times).\par
+  Notice that although so far we've not covered that much material on Markov chains, it's already enough to do part of an exam question (see Problem 3 overleaf).
+
+  \newpage
+  \begin{enumerate}
+    \item \textbf{On-off systems again}\\
+    Do [T + K] Problem V1.62. As revision, Please try to do this problem using renewal theory; next week we will see how to do it alternatively within the Markov chain formalism.
+    \item \textbf{Superpositio}\\
+    Do [T+K] Problem VI.6.3
+    \item \textbf{Holding time [Part question from 2003 exam paper]}
+    Let $X(t)$ be a time homogeneous continuous time Markov chain on state space $S = \{0, 1\}$ and generator
+    $$
+    \vb{G} =
+    \begin{pmatrix}
+      g_{0, 0} & g_{0, 1}\\
+      g_{1, 0} & g_{1, 1}
+    \end{pmatrix}.
+    $$
+    State the distribution of $T$, where $T = inf\{t \geq 0 : X(t) = 1|X(0) = 0\}$.
+  \end{enumerate}
+
+  \newpage
+  \textbf{MTH734U/MTHM012} \hfill \textbf{Mathematical Sciences}\\
+  \textbf{Semester B 2010 - 2011} \hfill \textbf{QMUL}
+  \begin{center}
+    \textbf{\huge Solutions for Week 6}
+  \end{center}
+  \hrule \vspace{2mm} \hrule
+  \section*{General comments:}
+  A bit shorter this week-there's only a limited selection of introductory questions on continuous-time Markov chains.
+\end{document}
