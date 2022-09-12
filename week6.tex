@@ -67,4 +67,60 @@
   \hrule \vspace{2mm} \hrule
   \section*{General comments:}
   A bit shorter this week-there's only a limited selection of introductory questions on continuous-time Markov chains.
+
+  \section*{Solutions to Problems:}
+  \begin{enumerate}
+    \item \textbf{On-off systems again}\\
+    I present here the solution using renewal theory. Later we will see how this kind of problem can also be treated in the Markov-chain renewal framework.\par
+    Since the components are independent we can start by considering them separately. For each component we can define a renewal cycle as the time between the instant that the component fails and the next such instant.\par
+    For component A let the interoccurrence times between failures be $X_1^{(A)}, X_2^{(A)}, X_3^{(A)}$, etc. and $Y_1^{(A)}, Y_2^{(A)}, Y_3^{(A)}$ be the portion of each interval spent in the \textit{operating} state. Let $p_A(t)$ be the probability that component $A$ is found in the operating state. Renewal theory asserts that this is given asymptotically by
+    \begin{equation}\tag{6.1}
+      \begin{aligned}[b]
+        \lim_{t\to\infty}p_A(t)
+        &= \frac{E[Y^{(A)}]}{E[X^{(A)}]}\\
+        &= \frac{\frac{1}{\beta_A}}{\frac{1}{\alpha_A +} + \frac{1}{\beta_A}}\\
+        &= \frac{\alpha_A}{\beta_A + \alpha_A}
+      \end{aligned}
+    \end{equation}
+    Note that we assume that the time spent in the failed state is independent of that spent in the operating state so that the mean length of the renewal cycle is just the sum of the mean failed time $(1/\alpha_A)$ and the mean operating time ($1/\beta_A$).\par
+    Similarly, the probability $p_B(t)$ that component $B$ is found in the operating state is given asymptotically by
+    \begin{equation}\tag{6.2}
+      \lim_{t\to\infty}p_B(t) = \frac{\alpha_B}{\beta_B + \alpha_B},
+    \end{equation}
+    and the probability $p_C(t)$ that component $B$ is found in the operating state is given asymptotically by
+    \begin{equation}\tag{6.3}
+      \lim_{t\to\infty} p_C(t) = \frac{\alpha_C}{\beta_C + \alpha_C}.
+    \end{equation}
+    Now, for the whole system to be operational, we require component $A$ to be operating and at least one of components $B$ and $C$. Let the probability of being in this operational state be given by $p(t)$. Since the components ate independent we conclude that, in the long run, the fraction of time spent operational is given by
+    \begin{align*}
+      \lim_{t\to\infty}p(t)
+      &= \lim_{t\to\infty}\{p_A(t)[1 - (1 - p_B(t))(1 - p_C(t))]\}\\
+      &= \lim_{t\to\infty}\{p_A(t)[p_B(t) + p_C(t) - p_B(t)p_C(t)]\}\quad \text{[check using a Venn Diagram]}\\
+      &= \frac{\alpha_A[\alpha_B(\beta_C + \alpha_C) + (\beta_B + \alpha_B)\alpha_C - \alpha_B\alpha_C]}{(\beta_A + \alpha_A)(\beta_B + \alpha_B)(\beta_C + \alpha_C)}\quad\text{[using (6.1) - (6.3)]}\\
+      &= \frac{\alpha_A(\alpha_B\beta_C + \beta_B\alpha_C + \alpha_B\alpha_C)}{(\beta_A + \alpha_A)(\beta_B + \alpha_B)(\beta_C + \alpha_C)}.
+    \end{align*}
+    \item \textbf{Superposition}\\
+    $Z(t)$ is a Markov chain on the state space $S = \{0, 1, 2,\ldots, N\}$ and the infinitesimal matrix is thus an $(N + 1)\times (N + 1)$ matrix. Notice that when $Z(t) = i$, $i$ of the chains $X_1(t), X_2(t),\ldots,X_N(t)$ are in state 1 and $N - i$ are in state 0. A chain in state of the chain $Z(t)$ results from a state change in any one of the chains $X_1(t), X_2(t),\ldots,X_N(t)$ and there is zero probability that two such changes happen at exactly the same time. Hence for a sort time interval $h$ we have
+    \begin{align*}
+      &\text{Pr}\{Z(t + h) = i + 1|Z(t) = i\} = (N - i)\lambda + o(h)\\
+      &\text{Pr}\{Z(t + h) = i - 1|Z(t) = i\} = i\mu + o(h)
+    \end{align*}
+    and it follows the infinitesimal matrix for $Z(t)$ is given by
+    $$
+    \begin{pmatrix}
+      -N\lambda & N\lambda & 0 & \ldots & 0\\
+      \mu & -\mu - (N - 1)\lambda & (N - 1)\lambda & \ldots & 0\\
+      0 & 2\mu & -2\mu - (N - 2)\lambda & \ldots & 0\\
+      0 & 0 & 3\mu & \ldots & 0\\
+      \vdots & \vdots & \vdots & \ddots & \vdots\\
+      0 & 0 & 0 & N_\mu & -N_\mu
+    \end{pmatrix}.
+    $$
+    In the equivalent sojourn-time description, one uses the fact that the sojourn time in a state of $Z(t)$ is the minimum of the sojourn times in the corresponding states of $X_1(t), X_2(t),\ldots, X_N(t)$. For example, if we start in a state 0 then each of the chains $X_1(t), X_2(t),\ldots, X_N(t)$ will on average stay in state 0 for a time $1/\lambda$. However, the mean time until any one of these chains changes state is $1/(N\lambda)$ - compare the lazy professor problem [Week 4] with exponentially distributed bulb lifetimes.
+    \item \textbf{Holding time [Part question from 2003 exam paper]}\\
+    $T = \inf\{t \geq 0: X(t) = 1|X(0) = 0\}$ is the holding time in state 0 which has an exponential distribution with parameter $g_{0,1}$ (or equivalently $-g_{0,0}$), i.e, for $\tau \geq 0$,
+    $$
+    F_T(\tau) = 1 - e^{-g_{0,1}\tau} \quad\text{or}\quad f_T(\tau) = g_{0,1}e^{-g_{0,1}\tau}.
+    $$
+  \end{enumerate}
 \end{document}
