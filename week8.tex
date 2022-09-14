@@ -1,0 +1,113 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts,amsmath,amssymb,suetterl}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage[utf8]{inputenc}
+\usepackage{physics}
+\usepackage{fontawesome}
+\DeclareUnicodeCharacter{2212}{-}
+\usepackage{mathrsfs}
+\usepackage[nodisplayskipstretch]{setspace}
+
+\setstretch{1.5}
+\setlength{\headheight}{15.2pt}
+
+\pagestyle{fancy}
+\fancyfoot[C]{\thepage}
+\fancyfoot[L]{Course Organizer: R. J. HARRIS}
+\fancyfoot[R]{rosemary.harris@qmul.ac.uk}
+
+% \renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0pt}
+\parindent 0ex
+\setlength{\parskip}{1em}
+
+\begin{document}
+  \textbf{MTH734U/MTHM012} \hfill \textbf{Mathematical Sciences}\\
+  \textbf{Semester B 2010 - 2011} \hfill \textbf{QMUL}
+  \begin{center}
+    \textbf{\huge Week 8}
+  \end{center}
+  \hrule \vspace{2mm} \hrule
+
+  \section*{Key Objective:}
+  \textit{Understand the arguments leading to forward and backward equations; be able to calculate the transition probability matrices corresponding to simple generators.}
+
+  \section*{Background:}
+  Carefully reread your lecture notes and supplement them with pages 394—397 of [T+K]. In particular, check the details of the calculations done in the lecture and make sure you can determine the probability transition matrix for an arbitrary $2\times 2$ generator. You should also think about how the birth-death processes considered earlier in Chapter 6 of [T+K] (and treated in the Probability Ill course) fit into the general theoretical framework.\par
+  For a tricky challenge in addition to the problems overleaf, try to understand the question (not the answer!) in [T+K] Problem 6.4 - I think it's at best ambiguous.
+
+  \newpage
+  \section*{Problems:}
+  \begin{enumerate}
+    \item \textbf{[Part question from 2003 exam paper]}\\
+    The transition probability matrix Of a time homogeneous, continuous time Markov chain $X(t)$ on state space $S$ is defined by
+    $$
+    (\vb{P}(t))_{i,j} = \text{Pr}\{X(s + t) = j|X(s) = i\}\quad \text{for $i,j\in S$}.
+    $$
+    Determine the transition probability matrix $\vb{P}(t)$ of the time homogeneous, continuous time Markov chain on state space $S = \{0, 1\}$ with generator
+    $$
+    \vb{G} =
+    \begin{pmatrix}
+      -1 & 1\\
+      1 & -1
+    \end{pmatrix}.
+    $$
+    \item \textbf{Follow-up}\\
+    For the Markov chain of the previous question, find
+    \begin{enumerate}
+      \item $\text{Pr}\{X(t) = 1|X(0) = 0, X(3t) = 0\}$,
+      \item $\text{Pr}\{X(t) = 1|X(0) = 0, X(3t) = 0, X(4t) = 0\}$.
+    \end{enumerate}
+    \item \textbf{Poisson process (again!)}\\
+    Let $X(t)$ be a Poisson process with parameter $\lambda$. Write down the generator for this process and hence obtain the forward equations for $P_{0k}(t) = \text{Pr}\{X(t) = k\}$. Solve these equations, by the method of generating functions or otherwise, to show that $X(t)$ has (unsurprisingly) a Poisson distribution.
+    \item \textbf{Laplace transform fun}\\
+    Suppose the state space is finite. Consider the Laplace transform defined by
+    $$
+    \hat{P}_{ij}(\lambda) = \int_0^\infty e^{-\lambda t} P_{ij}(t)dt,\quad \lambda > 0.
+    $$
+    \begin{enumerate}
+      \item Show
+      $$
+      \vb{\hat{P}}(\lambda) = (\lambda\vb{I} - \vb{A})^{-1},
+      $$
+      where $\vb{A}$ is the generator. Hints: Write $P_{ij}(t)$ in the Laplace transform as an integral, reverse the order of integration and use the backward equations.
+      \item Use the result from (a) to find (again!) the transition probability matrix $\vb{P}(t)$ for the $2 \times 2$ generator considered in the lectures
+      $$
+      \vb{A} =
+      \begin{pmatrix}
+        -\alpha & \alpha\\
+        \beta & -\beta
+      \end{pmatrix}
+      $$
+      \item Starting from (a) justify the general solution
+      $$
+      \vb{P}(t) = \sum_{n = 0}^\infty \frac{\vb{A}^nt^n}{n!}.
+      $$
+    \end{enumerate}
+    \textbf{(Hints available in tutorial on 9th March, solutions in tutorial on 16th March)}
+  \end{enumerate}
+
+  \newpage
+  \textbf{MTH734U/MTHM012} \hfill \textbf{Mathematical Sciences}\\
+  \textbf{Semester B 2010 - 2011} \hfill \textbf{QMUL}
+  \begin{center}
+    \textbf{\huge Solutions for Week 8}
+  \end{center}
+  \hrule \vspace{2mm} \hrule
+
+  \section*{General Comments:}
+  The first two questions should have been fairly straightforward this time. For the third question, do make sure that you're happy with the generator approach including solving the differential equation using the appropriate initial condition. The fourth question was a little harder but good for a challenge!
+
+  \section*{Solutions to Problems:}
+  \begin{enumerate}
+    \item \textbf{[Part question from 2003 exam paper]}\\
+    As discussed in the lecture, there are several possible approaches here; arguably the easiest is to use the forward equations
+    $$
+    \vb{P}^\prime(t) = \vb{P}(t)\vb{G}
+    $$
+  \end{enumerate}
+\end{document}
