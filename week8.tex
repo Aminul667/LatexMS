@@ -109,5 +109,66 @@
     $$
     \vb{P}^\prime(t) = \vb{P}(t)\vb{G}
     $$
+    with
+    $$
+    \vb{P}(t)
+    \begin{pmatrix}
+      P_{00}(t) & P_{01}(t)\\
+      P_{10}(t) & P_{11}
+    \end{pmatrix},\quad
+    \vb{G} =
+    \begin{pmatrix}
+      -1 & 1\\
+      1 & -1
+    \end{pmatrix}
+    $$
+    Using that
+    \begin{align*}
+      &P_{01}(t) = 1 - P_{00}(t)\\
+      &P_{11}(t) = 1 - P_{10}(t),
+    \end{align*}
+    one gets the two differential equations
+    \begin{align*}
+      &P^\prime_{00}(t) = -2P_{00}(t) + 1\\
+      &P^\prime_{10}(t) = -2P_{10}(t) + 1
+    \end{align*}
+    with initial conditions
+    \begin{align*}
+      &P_{00}(0) = 1\\
+      &P_{10}(0) = 0.
+    \end{align*}
+    Solution of the differential equations yields
+    \begin{align*}
+      &P_{00}(t) = \frac{1}{2} + \frac{1}{2}e^{-2t}\\
+      &P_{10}(t) = \frac{1}{2} - \frac{1}{2}e^{-2t},
+    \end{align*}
+    and hence
+    $$
+    \vb{P}(t) = \frac{1}{2}
+    \begin{pmatrix}
+      1 + e^{-2t} & 1- e^{-2t}\\
+      1 - e^{-2t} & 1 + e^{-2t}
+    \end{pmatrix}.
+    $$
+    \item \textbf{Follow-up}
+    \begin{enumerate}
+      \item The conditional probability can be expressed as
+      \begin{align*}
+        &\text{Pr}\{X(t) = 1|X(0) = 0, X(3t) = 0\}\\
+        &\quad = \frac{\text{Pr}\{X(0) = 0, X(t) = 1, X(3t) = 0\}}{\text{Pr}\{X(0) = 0, X(3t) = 0\}}\\
+        &\quad = \frac{\text{Pr}\{X(0) = 0\}\text{Pr}\{X(t) = 1|X(0) = 0\}\text{Pr}\{X(3t) = 0|X(t) = 1\}}{\text{Pr}\{X(0) = 0\}\text{Pr}\{X(3t) = 0 |X(0) = 0\}}\\
+        &\quad = \frac{P_{01}(t)P_{10}(2t)}{P_{00}(3t)}\quad \text{[using time-gomogeneity]}\\
+        &\quad = \frac{(1 - e^{-2t})(1 - e^{-4t})}{2(1 + e^{-6t})}.\quad \text{[using results of previous question]}
+      \end{align*}
+      \item A similar argument yields
+      \begin{align*}
+        \text{Pr}\{X(t) = 1|X(0) = 0, X(3t) = 0, X(4t) = 0\} 
+        &= \frac{P_{01}(t)P_{10}(2t)P_{00}(t)}{P_{00}(3t)P_{00}(t)}\\
+        &= \frac{(1 - e^{-2t})(1 - e^{-4t})}{2(1 + e^{-6t})}.
+      \end{align*}
+      The fact that the answer is the same as (a) should be obvious from the Markov property.\\
+      -Why?
+    \end{enumerate}
+    \item \textbf{Poisson process (again!)}
   \end{enumerate}
 \end{document}
