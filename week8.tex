@@ -169,6 +169,170 @@
       The fact that the answer is the same as (a) should be obvious from the Markov property.\\
       -Why?
     \end{enumerate}
-    \item \textbf{Poisson process (again!)}
+    \item \textbf{Poisson process (again!)}\\
+    The generator is
+    $$
+    \begin{pmatrix}
+      -\lambda & \lambda& 0 & 0 & \ldots\\
+      0 & -\lambda & \lambda & 0 & \ldots\\
+      0 & 0 & -\lambda & \lambda & \ldots\\
+      \vdots & \vdots & \vdots & \vdots & \ddots
+    \end{pmatrix}.
+    $$
+    and hence the forward equations are:
+    \begin{equation}\tag{8.1}
+      \begin{aligned}[b]
+        P^\prime_{0, 0}(t) &= -\lambda P_{0,0}(t)\\
+        P^\prime_{0, k}(t) &= -\lambda P_{0, k}(t) + \lambda P_{0, k-1}(t)\quad \text{for $k > 0$}
+      \end{aligned}
+    \end{equation}
+    with initial conditions
+    $$
+    P_{0,0}(0) = 1,\quad\text{and}\quad P_{0,k}(0)\quad\text{for $k > 0$}.
+    $$
+    Note that (8.1) can be extended to include the $k = 0$ by imposing the "natural" boundary condition $P_{0, -1}(t) = 0$.\\
+    One way to solve these equations is to define the generating functions
+    \begin{equation}\tag{8.2}
+      G(z, t) = \sum_{k = 0}^\infty P_{0,k}(t)z^k
+    \end{equation}
+    Then multiplying (8.1) by $z^k$ and summing over $k$ one finds
+    \begin{align*}
+      \sum_{k = 0}^\infty P^\prime_{0,k}(t)z^k
+      &= \sum_{k = 0}^\infty z^k\{-\lambda P_{0,k}(t) + \lambda P_{0, k-1}(t)\}\\
+      &= -\lambda\sum_{k = 0}^\infty P_{0,k}(t)z^k + \lambda z\sum_{k = 0}^\infty P_{0, k- 1}^tz^{k - 1}\\
+      &= -\lambda\sum_{k = 0}^\infty P_{0,k}(t)z^k + \lambda z\sum_{j = 0}^\infty P_{0,j}(t)z^j
+    \end{align*}
+    which finally yields,
+    \begin{equation}\tag{8.3}
+      \frac{\partial G}{\partial t} = \lambda(z - 1)G,
+    \end{equation}
+    with initial condition is $G(z,0) = z^0 = 1$. The general solution to (8.3) is
+    $$
+    G(z, t) = C(z)e^{\lambda(z - 1)t}
+    $$
+    and the initial condition gives $C(z) = 1$ for all $z$. [Note that the normalization condition $\sum_{k = 0}^\infty P_{0,k}(t) = 1$ is only enough to fix $C(1) = 1$.] Hence we conclude that
+    $$
+    G(z, t) = e^{\lambda(z - 1)t} = e^{-\lambda t}\sum_{k = 0}\frac{(\lambda t)^k}{k!}z^k,
+    $$
+    which, by comparison with (8.2) implies that $X(t)$ has a Poission distribution:
+    $$
+    P_{0, k}(t) = e^{-\lambda t}\frac{(\lambda t)^k}{k!}.
+    $$
+    \item \textbf{Laplace Transform fun}
+    \begin{enumerate}
+      \item Defining the Kronecker delta as
+      $$
+      \delta_{ij} =
+      \begin{cases}
+        1 & \text{if $i = j$}\\
+        0 & \text{if $i \neq j$ }
+      \end{cases}
+      $$
+      the analysis proceeds as follows:
+      \begin{align*}
+        \hat{P}_{ij}
+        &= \int_0^\infty e^{-\lambda t}P_{ij}(t)dt\\
+        &= \int_0^\infty e^{-\lambda t}(P_{ij}(t) - P_{ij}(0))dt + \lambda^{-1}\delta_{ij}\\
+        &= \int_0^\infty e^{-\lambda t}\left\{\int_0^t P^\prime_{ij}(s)ds\right\}dt + \lambda^{-1}\delta_{ij}\\
+        &= \int_0^\infty P^\prime_{ij}(s)\left\{\int_s^\infty e^{-\lambda t}dt\right\}ds + \lambda^{-1}\delta_{ij}\quad \text{[changing order of integration]}\\
+        &= \int_0^\infty P^\prime_{ij}(s)\lambda^{-1}e^{-\lambda s}ds + \lambda^{-1}\delta_{ij}\\
+        &= \sum_{k}\int_0^\infty A_{ik}P_{kj}(s)\lambda^{-1}e^{-\lambda s}ds + \lambda^{-1}\delta_{ij}\quad\text{[using backward equation]}\\
+        &= \lambda^{-1}\sum_k A_{ik}\hat{P}_{kj}(s) + \lambda^{-1}\delta_{ij}.
+      \end{align*}
+      In matrix notation this is just
+      $$
+      \lambda\hat{\vb{P}}(\lambda) = \vb{A}\hat{\vb{P}}(\lambda) + \vb{I}
+      $$
+      which is straightforwardly re-arranged to yield
+      $$
+      \hat{\vb{P}}(\lambda) = (\lambda\vb{I} - \vb{A})^{-1}.
+      $$
+      \item For the generator
+      $$
+      \vb{A} =
+      \begin{pmatrix}
+        -\alpha & \alpha\\
+        \beta & -\beta
+      \end{pmatrix}
+      $$
+      we have
+      $$
+      \lambda\vb{I} - \vb{A} =
+      \begin{pmatrix}
+        \lambda + \alpha & -\alpha\\
+        -\beta & \lambda + \beta
+      \end{pmatrix}
+      $$
+      and inverting this gives
+      \begin{align*}
+        (\lambda\vb{I} - \vb{A})^{-1} 
+        &= \frac{1}{\det(\lambda\vb{I} - \vb{A})}
+        \begin{pmatrix}
+          \lambda + \beta & \alpha\\
+          \beta & \lambda + \alpha
+        \end{pmatrix}\\
+        &= \frac{1}{\lambda(\lambda + \alpha + \beta)}
+        \begin{pmatrix}
+          \lambda + \beta & \alpha\\
+          \beta & \lambda + \alpha
+        \end{pmatrix}.
+      \end{align*}
+      As usual, the tricky part is doing the inverse Laplace transform [once again, equation (1.1) in the Week 1 solutions may be useful]. We start by using partial fractions to write
+      $$
+      \frac{1}{\lambda(\lambda + \alpha + \beta)} = \frac{1}{\alpha + \beta}\left\{\frac{1}{\lambda} - \frac{1}{\lambda + \alpha + \beta}\right\}.
+      $$
+      Then we have
+      \begin{align*}
+        (\lambda\vb{I}- \vb{A})^{-1}
+        &= \frac{1}{\alpha + \beta}
+        \begin{pmatrix}
+          \frac{\lambda + \beta}{\lambda} - \frac{\lambda + \beta}{\lambda + \alpha + \beta} & \frac{\alpha}{\lambda} - \frac{\alpha}{\lambda + \alpha + \beta}\\
+          \frac{\beta}{\lambda} - \frac{\beta}{\lambda + \alpha + \beta} & \frac{\lambda + \alpha}{\lambda} - \frac{\lambda + \alpha}{\lambda + \alpha + \beta}
+        \end{pmatrix}\\
+        &= \frac{1}{\alpha + \beta}
+        \begin{pmatrix}
+          1 + \frac{\beta}{\lambda} - \frac{\lambda + \beta}{\lambda + \alpha + \beta} & \alpha\left(\frac{1}{\lambda} - \frac{1}{\lambda + \alpha + \beta}\right)\\
+          \beta\left(\frac{1}{\lambda} - \frac{1}{\lambda + \alpha + \beta}\right) & 1 + \frac{\alpha}{\lambda} - \frac{\lambda + \alpha}{\lambda + \alpha + \beta}
+        \end{pmatrix}\\
+        &= \frac{1}{\alpha + \beta}
+        \begin{pmatrix}
+          \frac{\beta}{\lambda} + \frac{\alpha}{\lambda + \alpha + \beta} & \alpha\left(\frac{1}{\lambda} - \frac{1}{\lambda + \alpha + \beta}\right)\\
+          \beta\left(\frac{1}{\lambda} - \frac{1}{\lambda + \alpha + \beta}\right) & \frac{\alpha}{\lambda} + \frac{\beta}{\lambda + \alpha + \beta}
+        \end{pmatrix}\\
+        &= \frac{1}{\alpha + \beta}
+        \begin{pmatrix}
+          \int_0^\infty(\beta e^{-\lambda t} + \alpha e^{-(\lambda + \alpha + \beta)})dt & \int_0^\infty(\alpha e^{-\lambda t} - \alpha e^{-(\lambda + \alpha + \beta)})dt\\
+          \int_0^\infty(\beta e^{-\lambda t} - \beta e^{-(\lambda + \alpha + \beta)t})dt & \int_0^\infty(\alpha e^{-\lambda t} + \beta e^{-(\lambda + \alpha + \beta)t}dt)
+        \end{pmatrix}\\
+        &= \frac{1}{\alpha + \beta}\int_0^\infty e^{-\lambda t}
+        \begin{pmatrix}
+          \beta + \alpha e^{-(\alpha + \beta)t} & \alpha - \alpha e^{-(\alpha + \beta)t}\\
+          \beta - \beta e^{-(\alpha + \beta)t} & \alpha + \beta e^{-(\alpha + \beta)t}
+        \end{pmatrix}dt,
+      \end{align*}
+      where we interpret the integral of a matrix as the matrix of integrals of the components of the matrix. From here, we can read off
+      $$
+      \vb{P}(t) = \frac{1}{\alpha + \beta}
+      \begin{pmatrix}
+        \beta + \alpha e^{-(\alpha + \beta)t} & \alpha - \alpha e^{-(\alpha + \beta)t}\\
+        \beta - \beta e^{-(\alpha + \beta)t} & \alpha + \beta e^{-(\alpha + \beta)t}
+      \end{pmatrix}
+      $$
+      in agreement with the other methods.
+      \item We have
+      \begin{align*}
+        \hat{\vb{P}}(t)
+        &= (\lambda\vb{I} - \vb{A})^{-1}\\
+        &= \lambda^{-1}(\vb{I} - \lambda^{-1}\vb{A})^{-1}\\
+        &= \lambda^{-1}\sum_{n = 0}^\infty(\lambda^{-1}\vb{A})^n\\
+        &= \lambda^{-1}\sum_{n = 0}^\infty\vb{A}^n\lambda^{-n}\\
+        &= \sum_{n = 0}^\infty\frac{A^n}{n!}\int_0^\infty e^{-\lambda t}t^ndt\\
+        &= \int_0^\infty e^{-\lambda t}\sum_{n = 0}^\infty\frac{\vb{A}^nt^n}{n!}dt,
+      \end{align*}
+      and it follows that
+      $$
+      \vb{P}(t) = \sum_{n = 0}^\infty \frac{\vb{A}^nt^n}{n!}.
+      $$
+    \end{enumerate}
   \end{enumerate}
 \end{document}
