@@ -1,0 +1,260 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts,amsmath,amssymb,suetterl}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage[utf8]{inputenc}
+\usepackage{physics}
+\usepackage{fontawesome}
+\DeclareUnicodeCharacter{2212}{-}
+\usepackage{mathrsfs}
+\usepackage[nodisplayskipstretch]{setspace}
+
+\setstretch{1.5}
+\setlength{\headheight}{15.2pt}
+
+\pagestyle{fancy}
+\fancyfoot[C]{\thepage}
+\fancyfoot[L]{Course Organizer: R. J. HARRIS}
+\fancyfoot[R]{rosemary.harris@qmul.ac.uk}
+
+% \renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0pt}
+\parindent 0ex
+\setlength{\parskip}{1em}
+\allowdisplaybreaks
+
+\begin{document}
+  \textbf{MTH734U/MTHM012} \hfill \textbf{Mathematical Sciences}\\
+  \textbf{Semester B 2010 - 2011} \hfill \textbf{QMUL}
+  \begin{center}
+    \textbf{\huge Week 10}
+  \end{center}
+  \hrule \vspace{2mm} \hrule
+
+  \section*{Key Objective:}
+  \textit{Know the definition of Brownian Motion. Be able to calculate the means and covariance functions of related stochastic processes and determine whether, or not, they are standard Brownian motions}
+
+  \section*{Background:}
+  Please read the whole of [T+K] Chapter VIll, Section 1 which expands on the topics covered in the lecture. To provide a solid foundation for future work, I recommend trying to do the (easier) "Exercises" at the end of the chapter as well as the "Problems" listed overleaf.
+  \newpage
+
+  \section*{Problems:}
+  \begin{enumerate}
+    \item \textbf{[Part question from 2007 exam paper]}\\
+    Let $B(t)$ be standard Brownian motion. Show that $tB(1/t)$ is again standard Brownian motion.
+    \item \textbf{Product moments}\\
+    Consider a standard Brownian motion $\{B(t): t \geq 0\}$ at times $0 < t_l < t_2 < t_3 < t_4$.
+    \begin{enumerate}
+      \item Evaluate the product moment
+      $$
+      E[B(t_1)B(t_2)B(t_3)].
+      $$
+      \item Evaluate the product moment
+      $$
+      E[B(t_1)B(t_2)B(t_3)B(t_4)].
+      $$
+    \end{enumerate}
+    \item \textbf{[Expectation of a process related to Brownian motion]}\\
+    Do [T + K] Problem VIII.1.2.
+    \item \textbf{Reflected Brownian Motion}\\
+    Do [T + K] Problem VIII.1.3 - also part of a question on the 2006 exam paper.
+    \item \textbf{Random walk, invariance principle}\\
+    Do [T + K] Problem V111.1.5 - quite long, consider it as an optional challenge.
+  \end{enumerate}
+  \textbf{(Hints available in tutorial on 23rd March, solutions in tutorial on 30th March)}
+  \newpage
+
+  \textbf{MTH734U/MTHM012} \hfill \textbf{Mathematical Sciences}\\
+  \textbf{Semester B 2010 - 2011} \hfill \textbf{QMUL}
+  \begin{center}
+    \textbf{\huge Solutions for Week 10}
+  \end{center}
+  \hrule \vspace{2mm} \hrule
+
+  \section*{General comments:}
+  The first three problems are all pretty standard so make sure you understand the details. Similar questions for practice can be found in the past exam papers from 2005—2007.\\
+  In what follows, unless explicitly stated otherwise, I use $B(t)$ to denote standard Brownian motion with $B(O)= 0$. I also use $\Phi(z)$ for the cumulative distribution function of the standard normal distribution and $\phi(z)$ for the corresponding p.d.f., i.e,
+  $$
+  \Phi(x) = \int_{-\infty}^x\phi(u)du = \int_{-\infty}^x\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}u^2}du.
+  $$
+  Notice that
+  \begin{align*}
+    \Phi\left(\frac{x}{\sqrt{t}}\right)
+    &= \int_{-\infty}^\frac{x}{\sqrt{t}}\phi(u)du\\
+    &= \int_{-\infty}^x\frac{1}{\sqrt{t}}\phi\left(\frac{x}{\sqrt{t}}\right)dz.
+  \end{align*}
+  Note the factor of $\frac{1}{\sqrt{t}}$ which results from changing the variables. In particular, the transition density for standard Brownian motion should read
+  $$
+  p(y, t|x) = \frac{1}{\sqrt{t}}\phi\left(\frac{y - x}{\sqrt{t}}\right) = \frac{1}{\sqrt{2\pi t}}\exp\left(-\frac{1}{2t}(y - x)^2\right).
+  $$
+
+  \section*{Solutions to Problems:}
+  \begin{enumerate}
+    \item \textbf{[Part question from 2007 exam paper]}\\
+    Let $\tilde{B}(t) = tB(1/t)$. Note that since $B(t)$ is a Gaussian process so $\tilde{B}(t)$ is also Gaussian. Also $B(t)$ is continuous so $\tilde{B}(t)$ is continuous. [You might (legitimately) worry about proving continuity at $t = 0$ but it seems the exam question intended you to ignore this technicality]. To demonstrate Brownian motion we now need merely to check the mean and covariance.
+    \begin{itemize}
+      \item Mean: $E[\tilde{B}(t)] = tE[B(1/t)] = 0$
+      \item Covariance function:
+      \begin{align*}
+        \text{Cov}[\tilde{B}(s), \tilde{B}(t)]
+        &= \text{Cov}[sB(1/s)tB(1/t)]\\
+        &= st\text{Cov}[B(1/s)B(1/t)]\\
+        &= st\min\left\{\frac{1}{s}, \frac{1}{t}\right\}\\
+        &= \min \{s,t\}
+      \end{align*}
+      corresponding to $\sigma^2 = 1$.\\
+      Arguably, to check that it's standard Brownian motion we also need to show $\tilde{B}(0) = 0$. Indeed, assuming continuity as above, $\tilde{B}(0) = \lim_{t\to\infty} \tilde{B}(t) = 0$.\\
+      So we conclude, as required, that $\tilde{B}(t)$ is also standard Brownian motion.
+    \end{itemize}
+    \item \textbf{Product moments}
+    \begin{enumerate}
+      \item Repeated application of the independent increments property yields
+      \begin{align*}
+        E[B(t_1)B(t_2)B(t_3)] 
+        &= E[B(t_1)B(t_2)\{B(t_3) - B(t_2) + B(t_2)\}]\\
+        &= E[B(t_1)B(t_2)]E[B(t_3) - B(t_2)] + E[B(t_1)B(t_2)B(t_2)]\\
+        &= t_1\times 0 + E[B(t_1)\{B(t_2) - B(t_1) + B(t_1)\}^2]\\
+        &= E[B(t_1)]E[\{B(t_2) - B(t_1)\}^2] + 2E[B(t_1)^2]E[B(t_2) - B(t_1)] \\
+        &  \qquad + E[B(t_1)^3]\\
+        &= 0\times (t_2 - t_1) + 2\times t_1\times 0 + 0\\
+        &= 0,
+      \end{align*}
+      as might have been obvious in the first place from symmetry considerations.
+      \item Similarly,
+      \begin{align*}
+        E[B(t_1)B(t_2)B(t_3)]
+        &= E[B(t_1)B(t_2)B(t_3)\{B(t_3) - B(t_2) + B(t_2)\}]\\
+        &= E[B(t_1)B(t_2)B(t_3)]E[B(t_4) - B(t_3)] + E[B(t_1)B(t_2)B(t_3)^2]\\
+        &= 0\times 0 + E[B(t_1)B(t_2)\{B(t_3) - B(t_2) + B(t_2)\}^2]\\
+        &= E[B(t_1)B(t_2)]E[\{B(t_3) - B(t_2)\}^2] + 2E[B(t_1)B(t_2)^2]E[B(t_3) \\
+        & \quad - B(t_2)] + E[B(t_1)B(t_2)^3]\\
+        &= t_1(t_3 - t_2) + 0 \times 0 + E[B(t_1)\{B(t_2) - B(t_1) + B(t_1)\}^3]\\
+        &= t_1(t_3 - t_2) + E[B(t_1)]E[\{B(t_2) - B(t_1)\}^3] + 3E[B(t_1)^2]\\
+        & \qquad E[\{B(t_2) - B(t_1)\}^2] + 3E[B(t_1)^3]E[\{B(t_2) - B(t_1)\}] \\
+        & \qquad + E[B(t_1)^4]\\
+        &= t_1(t_3 - t_2) + 0 \times 0 + 3t_1(t_2 - t_1) + 3 \times 0 \times 0 + 3(t_1)^2\\
+        & \qquad\qquad\qquad\qquad\qquad\qquad\qquad\text{[moments of Gaussian]}\\
+        &= t_1(t_3 + 2t_2).
+      \end{align*}
+    \end{enumerate}
+    \item \textbf{Expectation of a process related to Brownian motion}
+    \begin{align*}
+      E[e^{\lambda B(t)}]
+      &= \int_{-\infty}^\infty e^{\lambda x}\frac{1}{\sqrt{2\pi t}}e^{-x^2/2t}dx\\
+      &= e^{\lambda^2t/2}\int_{-\infty}^\infty\frac{1}{\sqrt{2\pi t}}e^{-(x - \lambda t)^2/2t}dx\quad\text{[completing square]}\\
+      &= e^{\lambda^2t/2}\int_{-\infty}^\infty\frac{1}{\sqrt{2\pi t}}e^{-y^2/2t}dy\quad\text{[changing variable $y = x - \lambda t$]}\\
+      &= e^{\lambda^2 t/2}.\quad\text{[Gaussian integral]}
+    \end{align*}
+    This is an example of Geometric Brownian motion which plays an important role in modelling stock market prices.
+    \item \textbf{Reflected Brownian Motion}
+    \begin{align*}
+      \text{Pr}\left\{\frac{|B(t)|}{t} > \epsilon \right\}
+      &= \text{pr}\left\{\frac{B(t)}{t}< - \epsilon\right\} + \text{Pr}\left\{\frac{B(t)}{t} > \epsilon\right\}\\
+      &= 2\text{pr}\left\{\frac{B(t)}{t} > \epsilon\right\}\\
+      &= 2[1 - \text{Pr}\{B(t) \leq \epsilon t\}]\\
+      &= 2[1 - \Phi(\epsilon t/\sqrt{t})]\\
+      &= 2[1 - \Phi(\epsilon\sqrt{t})].
+    \end{align*}
+    Remembering that
+    $$
+    \Phi(x) = \int_{-\infty}^x\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}u^2}du,
+    $$
+    it's easy to extract the limiting behaviour:
+    \begin{itemize}
+      \item As $x \to \infty,\, \Phi(x)\to 1$ so 
+      $$
+      \text{Pr}\left\{\frac{B(t)}{t} > \epsilon\right\}\to 0 \quad\text{as $t \to \infty$}.
+      $$
+      [To see the form of this decay you can use the approximation $\Phi(x) \approx 1 - \phi(x)/x $ for $x$ large.]
+      \item For $x\approx 0,\, \Phi(x) \approx 0.5$ so
+      $$
+      \text{Pr}\left\{\frac{|B(t)|}{t} > \epsilon\right\} \approx 1\quad \text{for $t \approx 0$}.
+      $$
+    \end{itemize}
+    \item \textbf{Random walk, invariance principle}
+    \begin{enumerate}
+      \item First we note that the required probability is given by
+      $$
+      \text{Pr}\{M_\tau = 0\} = \text{Pr}\{\text{$S_n$ reaches $-a$ before 1 | $S_n = 0$}\}
+      $$
+      To calculate this, we use (as directed) first step analysis. This is standard but somewhat tedious; I outline the procedure below and refer you to Sec. 111.6 of [T+K] for more details. Let $u_i$ be the probability that $S_n$ reaches $-a$ before 1 given that $S_0 = i$, i.e,
+      $$
+      u_i = \text{Pr}\{\text{$S_n$ reaches $-a$ before 1 | $S_0 = i$\}}.
+      $$
+      (In this notation we ultimately want to calculate $u_0$.) Considering the position of the random walk after a single step from the starting point $i$, yields the difference equation
+      \begin{equation}\tag{10.1}
+        u_i = \frac{1}{2}u_{i + 1} + \frac{1}{2}u_{i - 1}\quad\text{for $i = 0, -1, -,\ldots,-(a - 1)$}
+      \end{equation}
+      with (obvious) boundary condition
+      $$
+      u_1 = 0,\quad\text{and}\quad u_{-a} = 1.
+      $$
+      The trick to solve these equations is to consider the difference $x_i = u_i - u_{i - 1}$ for $i = 1, 0, -1,\ldots,-(a - 1)$. Simple rearrangement of (10.1) gives
+      $$
+      0 = x_{i + 1} - x_i,\quad \text{for $i = 0, -1, -2,\ldots,-(a-1)$}
+      $$
+      and it follows that $x_i = c$ where $c$ is a constant. To determine $c$ we sum the $x_i$'s and use the boundary conditions:
+      \begin{align*}
+        \sum_{i = -(a - 1)}^1 x_i &= u_1 - u_{-a}\\
+        (a + 1)c &= 0 - 1\\
+        c &= -\frac{1}{1 + a}.
+      \end{align*}
+      Finally, the boundary condition $u_1 = 0$ implies
+      $$
+      x_1 = -u_0,
+      $$
+      so that the required probability is given by
+      \begin{align*}
+        \text{Pr}\{M_\tau = 0\}
+        &= u_0\\
+        &= -x_1\\
+        &= \frac{1}{1 + a}.\quad\text{[cf. [T + K] (1.12) with $b = 1$]}
+      \end{align*}
+      \item Consider the random walk $S_n$ starting at $S_0 = 0$. If $M_\tau \geq 2$, then we must obviously also have $M_\tau \geq 1$. This implies that the random walk reaches $S_n = 1$ at some time, $m$ say, before it reaches $S_n = -a$. Since the process is Markovian what happens for times $n > m$ is independent of the history for $n < m$. Furthermore, the random walk probabilities are homogeneous (i.e., constant) in time and space. Thus we can consider the random walk to start afresh from $S_m = 1$ and, conditional on this event, the probability to reach $S_n = 2$ before dropping a units to $S_n = -(a - 1)$ must be the same as $\text{Pr}\{\text{$S_n$ reaches 1 before $-a$ | $S_0 = 0$}\} = \text{Pr}\{M_\tau \geq 1\}$. Hence, we have,
+      \begin{align*}
+        \text{Pr}\{M_\tau \geq 2\}
+        &= \text{Pr}\{M_\tau \geq 1\}\times\text{Pr}\{M_\tau \geq 1\}\\
+        &= \text{Pr}\{M_\tau \geq 1\}^2
+      \end{align*}
+      where
+      \begin{align*}
+        \text{Pr}\{M_\tau \geq 1\}
+        &= 1 - \text{Pr}\{M_\tau = 0\}\\
+        &= \frac{a}{1 + a}
+      \end{align*}
+      Continuing the argument (or formally proving by induction) we see that, for $k = 1, 2, 3,\ldots,$
+      \begin{equation}\tag{10.2}
+        \begin{aligned}[b]
+          \text{Pr}\{M_\tau \geq k\}
+          &= \text{Pr}\{M_\tau \geq k - 1\}\text{Pr}\{M_\tau \geq 1\}\\
+          &= \text{Pr}\{M_\tau \geq 1\}^k\\
+          &= \left(\frac{a}{1 + a}\right)^k.
+        \end{aligned}
+      \end{equation}
+      We conclude that MT has the geometric distribution,
+      $$
+      \text{Pr}\{M_\tau = k\} = \left(\frac{1}{1 + a}\right)\left(\frac{a}{1 + a}\right)^k.
+      $$
+      \item First we construct approximate Brownian motion
+      $$
+      B_n(t) = \frac{S_{[nt]}}{\sqrt{n}}
+      $$
+      where $[x]$ is the greatest integer less than or equal to $x$. Notice that this rescales the lengths in the problem by a factor of $\sqrt{n}$. The invariance principle states that as $n \to \infty$, $B_n(t)$ converges to standard Brownian motion $B(t)$. Rescaling the lengths in (10.2) and taking the limit, we find
+      \begin{align*}
+        \text{Pr}\{M(\tau) \geq x\}
+        &= \lim_{n\to \infty}\left(\frac{a\sqrt{n}}{1 + a\sqrt{n}}\right)^{x\sqrt{n}}\\
+        &= \lim_{n\to \infty}\left(\frac{1}{1 + \frac{1}{a\sqrt{n}}}\right)^{x\sqrt{n}}\\
+        &= \lim_{n\to\infty}\left(1 - \frac{1}{a\sqrt{n}}\right)^{x\sqrt{n}}\\
+        &= e^{-x/a}.
+      \end{align*}
+      Hence
+      $$
+      \text{Pr}\{M(\tau) \leq x\} = 1 - e^{-x/a},
+      $$
+      i.e., $M(\tau)$ has an exponential distribution with mean $a$.
+    \end{enumerate}
+  \end{enumerate}
+\end{document}
