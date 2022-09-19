@@ -43,7 +43,147 @@
     \item \textbf{On-off process again}\\
     Do [T + K] Problem VI.6.2. We did this problem a few weeks ago within the framework of renewal theory. Now treat each component as a Markov chain and compare your results. Which method do you find easier?
     \item \textbf{Student health}\\
-    Sam Lacker is an undergraduate student whose health appears to be a Markov process fluctuating between three states: O (fit) I (minor illness which prevents him studying but does not stop him working at his part-time job)
+    Sam Lacker is an undergraduate student whose health appears to be a Markov process fluctuating between three states: 0 (fit), 1 (minor illness which prevents him studying but does not stop him working at his part-time job), 2 (major illness requiring him to stay at home). When he develops an illness from the fit state it has a probability $\frac{1}{3}$ to be a minor illness and a probability $\frac{2}{3}$ to be a major illness. From a minor illness, he recovers with probability $\frac{1}{3}$ or develops a major illness with probability $\frac{2}{3}$. From a state Of major illness he always returns directly to full fitness. Assuming time units of days, the sojourn times in states $0, 1, 2$ are exponentially distributed with parameters $\frac{1}{3},\, \frac{1}{3},\, \frac{1}{6}$ respectively.
+    \begin{enumerate}
+      \item What is the generator matrix?
+      \item What is the long-run proportion of time Sam is able to study?
+      \item If Sam earns $\pounds 20$ per daily shift worked, what are his long-run weekly earnings?
+    \end{enumerate}
+    \item \textbf{Computer queue}\\
+    Jobs arrive in a computer queue in the manner of a Poisson process with intensity $\lambda$. The central processor handles them one by one in the order of their arrival, and each has an exponentially distributed runtime with parameter $\mu$, the runtimes of different jobs being independent of each other and of the arrival process. Let $X(t)$ be the number of jobs in the system (either running or waiting) at time $t$, where $X(0) = 0$. Explain why $X$ is a Markov chain, and write down its generator. Show that a stationary distribution exists if and only if $\lambda < \mu$, and find it in this case.
   \end{enumerate}
+  \textbf{(Hints available in tutorial on 16th March, solutions in tutorial on 23rd March)}
 
+  \newpage
+  \textbf{MTH734U/MTHM012} \hfill \textbf{Mathematical Sciences}\\
+  \textbf{Semester B 2010 - 2011} \hfill \textbf{QMUL}
+  \begin{center}
+    \textbf{\huge Solutions for Week 9}
+  \end{center}
+  \hrule \vspace{2mm} \hrule
+
+  \section*{General comments:}
+  All of these questions rely on the use of the equation $\pi \vb{A} = 0$, to find the stationary distribution $\pi$ from knowledge of the generator $\vb{A}$
+
+  \section*{Solutions to Problems:}
+  \begin{enumerate}
+    \item \textbf{On-off process again}\\
+    Since each component has two states (0 or 1) the complete system has eight states and we could model it as an eight-state Markov chain. However, it is much simpler to consider each component separately as a two-state Markov chain and use their statistical independence. The generator for component $x$ (where $x\in \{A, B, C\}$) is given by
+    $$
+    \vb{A}_x =
+    \begin{cases}
+      -\alpha_x & \alpha_x\\
+      \beta_x & -\beta_x
+    \end{cases}.
+    $$
+    Let $\pi_x = (1 - p_x, p_x)$ be the stationary probability distribution corresponding to this generator. In other words, $p_x$ is the long-run probability that component is operating. For a stationary distribution we require $\pi_x\vb{A}_x = 0$ so
+    $$
+    (1 - p_x, p_x)
+    \begin{pmatrix}
+      -\alpha_x & \alpha_x\\
+      \beta_x & -\beta_x
+    \end{pmatrix}
+    = 0
+    $$
+    This yields
+    $$
+    (1 - p_x)\alpha_x + p_x\beta_x = 0
+    $$
+    and hence
+    $$
+    p_x = \frac{\alpha_x}{\alpha_x + \beta_x}.
+    $$
+    Remembering that the components are assumed independent, the probability that neither of B or C is operating is $(1 - \beta_B)(1 - \beta_C)$; hence the probability that at least one of them is working is $1 - (1 - p_B)(1 - p_C)$. It follows that the probability $p$ that the complete system is operating is given by
+    \begin{align*}
+      p
+      &= p_A[1 - (1 - p_B)(1 - p_C)]\\
+      &= p_A[p_B + p_C - p_Bp_C]\\
+      &= \frac{\alpha_A[\alpha_B(\alpha_C + \beta_C) + (\alpha_B + \beta_B)\alpha_C - \alpha_B\alpha_C]}{(\alpha_A + \beta_A)(\alpha_B + \beta_B)(\alpha_C + \beta_C)}\\
+      &= \frac{\alpha_A(\alpha_B\alpha_C + \alpha_B\beta_C + \beta_B\alpha_C)}{(\alpha_A + \beta_A)(\alpha_B + \beta_B)(\alpha_C + \beta_C)}
+    \end{align*}
+    [It's largely a matter of personal taste, whether you prefer to use the renewal process formalism or the Markov chain approach to find the long-run probabilities. Note, however, that the renewal process method is more general since, in principle, it can also deal with operating times which are not exponentially distributed.]
+    \item \textbf{Student health}
+    \begin{enumerate}
+      \item First note that the diagonal elements Of the generator are given by $A_{ii} = -q_i$ where $q_i$ is the inverse of the mean sojourn time in state $i$. After leaving state $i$ the probability that the process jumps to state $j \neq i$ is given by $p_{ij} = q_{ij}/q_i$. The question effectively gives us the $p_{ij}$'s so we can calculate the $q_{ij}$'s which are the off-diagonal elements of the generator. The complete generator matrix is thus given by
+      $$
+      \vb{A} =
+      \begin{pmatrix}
+        -\frac{1}{3} & \frac{1}{9} & \frac{2}{9}\\
+        \frac{1}{9} & -\frac{1}{3} & \frac{2}{9}\\
+        \frac{1}{6} & 0 & -\frac{1}{6}
+      \end{pmatrix}.
+      $$
+      Check that the rows sum to zero as they should.
+      \item Let the stationary distribution be given by $\pi = (\pi_0, \pi_1, \pi_2)$, then we have
+      $$
+      (\pi_0, \pi_1, \pi_2)
+      \begin{pmatrix}
+        -\frac{1}{3} & \frac{1}{9} & \frac{2}{9}\\
+        \frac{1}{9} & -\frac{1}{3} & \frac{2}{9}\\
+        \frac{1}{6} & 0 & -\frac{1}{6}
+      \end{pmatrix}
+      = 0.
+      $$
+      which yields the equations
+      \begin{align}
+        \tag{9.1}
+        -\frac{1}{3}\pi+0 + \frac{1}{9}\pi_1 + \frac{1}{6}\pi_2 &= 0,\\
+        \tag{9.2}
+        \frac{1}{9}\pi+0 - \frac{1}{3}\pi_1 &= 0,\\
+        \tag{9.3}
+        \frac{2}{9}\pi_0 + \frac{2}{9}\pi_1 - \frac{1}{6}\pi_2 &= 0.
+      \end{align}
+      Solving (say) (9.1) and (9.2) yields
+      $$
+      \pi_1 = \frac{1}{3}\pi_0,\quad\text{and}\quad \pi_2 = \frac{16}{9}\pi_0
+      $$
+      Now, using the normalization condition $\pi_0 + \pi_1 + \pi_2 = 1$ we finally get
+      $$
+      (\pi_0, \pi_1, \pi_2) = (\frac{9}{28}, \frac{3}{28}, \frac{16}{28}).
+      $$
+      The long-run proportion of time Sam is fit to study is
+      $$
+      \pi_0 = \frac{9}{28}.
+      $$
+      \item Sam can work in both states 0 and 1 so, assuming he is supposed to work 7 days a week, his long-run weekly earnings are given by
+      \begin{align*}
+        \pounds 20 \times 7 \times (\pi_0 + \pi_1) 
+        &= \pounds 140 \times \frac{12}{28}\\
+        &= \pounds 60.
+      \end{align*}
+    \end{enumerate}
+    \item \textbf{Computer queue}\\
+    The interarrival times and runtimes are independent and exponentially distributed. It is the lack-of-memory property which guarantees that $X$ has the Markov property.\\
+    The state space is $S = \{0, 1, 2,\ldots\}$ and the generator is 
+    $$
+    \vb{A} =
+    \begin{pmatrix}
+      -\lambda & \lambda & 0 & 0 & \ldots\\
+      \mu & -(\lambda + \mu) & \lambda & 0\\
+      0 & \mu & -(\lambda + \mu) & \lambda & \ldots\\
+      \vdots & \vdots & \vdots & \vdots & \ddots
+    \end{pmatrix}
+    $$
+    Assuming $\lambda > 0$ and $\mu > 0$, the chain is irreducible so the ergodic theorem ensures that there is either a unique stationary distribution or no stationary distribution. Notice also that, although the state space is infinite, $\sup\{-A_{ii}\} < \infty$. If there is a stationary distribution $\pi = (\pi_0, \pi_1, \pi_2, \pi_3, \ldots)$, it satisfies 
+    $$
+    \pi\vb{A} = 0
+    $$
+    which leads to the equations
+    \begin{equation}\tag{9.4}
+      -\lambda\pi_0 + \mu\pi_1 = 0
+    \end{equation}
+    and
+    \begin{equation}\tag{9.5}
+      \lambda\pi_{j - 1} - (\lambda + \mu)\pi_j + \mu\pi_{j + 1} = 0\quad\text{for $j \geq 1$}.
+    \end{equation}
+    From (9.4) we have $\pi_1 = \pi_0(\lambda/\mu)$; then, by induction, (9.5) gives $\pi_j = \pi_0(\lambda/\mu)^j$. In order for this to be a stationary we must also have $\sum_{j = 0}^\infty\pi_j = 1$. Since,
+    \begin{equation}\tag{9.6}
+      \sum_{j = 0}^\infty\left(\frac{\lambda}{\mu}\right)^j = \frac{1}{1 - (\lambda/\mu)},\quad \text{if $\lambda < \mu$}\quad \text{[geometric progression]},
+    \end{equation}
+    we find that there is a stationary distribution given by
+    $$
+    \pi_j = \left(1 - \frac{\lambda}{\mu}\right)\left(\frac{\lambda}{\mu}\right)^j,\quad\text{if $\lambda < \mu$}.
+    $$
+    If $\lambda \geq \mu$, then the sum on the left-hand side of (9.6) does not converge and hence there is no stationary distribution. Physically, we see that $\lambda > \mu$ corresponds to the case where jobs arrive (on average) faster than they can be dealt with and hence pile up on the processor.
+  \end{enumerate}
 \end{document}
