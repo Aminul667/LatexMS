@@ -67,5 +67,106 @@
   \hrule \vspace{2mm} \hrule
 
   \section*{General comments:}
-
+  The main idea in this final assignment is use Of the reflection principle. In preparation for the exam you should now recap all the material we have covered on Brownian motion (corresponds to pages 473-502 of [T+K]).\par 
+  In what follows, unless explicitly stated otherwise, I use $B(t)$ to denote standard Brownian motion with $B(0) = 0$. I also use $\Phi(z)$ for the cumulative distribution function of the standard normal distribution and $\phi(z)$ for the corresponding p.d.f, i.e.,
+  $$
+  \Phi(x) = \int_{-\infty}^\infty\phi(u)du = \int_{-\infty}^x\frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}u^2}du.
+  $$
+  Notice that
+  \begin{align*}
+    \Phi\left(\frac{x}{\sqrt{t}}\right) 
+    &= \int_{-\infty}^\frac{x}{\sqrt{t}}\phi(u)du\\
+    &= \int_{-\infty}^x\frac{1}{\sqrt{t}}\phi\left(\frac{z}{\sqrt{t}}\right)dz,
+  \end{align*}
+  where the factor of results from changing variables.
+  
+  \section*{Solutions to Problems:}
+  \begin{enumerate}
+    \item \textbf{Trigonometric identities}\\
+    Let $\theta = \arctan\sqrt{s/t}$. From the identity $\sin^2\theta + \cos^2\theta = 1$ (or from a diagram), it follows that $\tan^2\theta + 1 = 1/\cos^2\theta$ and
+    \begin{align*}
+      \cos\theta
+      &= \sqrt{\frac{1}{1 + \tan\theta}}\\
+      &= \sqrt{\frac{1}{1 + s/t}}\\
+      &= \sqrt{\frac{t}{t + s}}.
+    \end{align*}
+    Hence
+    $$
+    \theta = \arccos\sqrt{\frac{t}{s + t}},
+    $$
+    proving, as required, that
+    $$
+    \arctan\sqrt{\frac{s}{t}} = \arccos\sqrt{\frac{t}{s + t}}.
+    $$
+    \item \textbf{Zeros (or lack of them)}\\
+    The required conditional probability is given by
+    \begin{align*}
+      &\text{Pr}\{[\text{$B(u)$ for all $t < u \leq t + b$}] | [\text{$B(u) \neq 0$ for all $t < u \leq t + a$}]\}\\
+      &= \frac{\text{Pr}\{[\text{$B(u) \neq 0$ for all $t < u \leq t + b$}] \cap [\text{$B(u) \neq = 0$ for all $t < u \leq t+a$}]\}}{\text{Pr}\{\text{$B(u) \neq 0$ for all $t < u \leq t + a$}\}}\\
+      &= \frac{\text{Pr}\{\text{$B(u)\neq 0$ for all $t < u \leq t + b$}\}}{\text{Pr}\{\text{$B(u) \neq 0$ for all $t < u \leq t + a$}\}}\quad \text{[since $(t, t + a]$ is a subinterval of $(t, t + a]$]}\\
+      &= \frac{1 - \frac{2}{\pi}\arccos\sqrt{\frac{t}{t + b}}}{1 - \frac{2}{\pi}\arccos\sqrt{\frac{t}{t + a}}}\\
+      &= \frac{1 - \frac{2}{\pi}\left(\frac{\pi}{2} - \arcsin\sqrt{\frac{t}{t + b}}\right)}{1 - \frac{2}{\pi}\left(\frac{\pi}{2} - \arcsin\sqrt{\frac{t}{t + a}}\right)}\quad\text{[trig. identities]}\\
+      &= \frac{\arcsin\sqrt{\frac{t}{t + b}}}{\arcsin\sqrt{\frac{t}{t + a}}}.
+    \end{align*}
+    Taking the limit $t \to 0$yields
+    \begin{align*}
+      &\text{Pr}\{[\text{$B(u) \neq 0$ for all $0 < u \leq b$}] | [\text{$B(u) \neq 0$ for all $0 < u \leq a$}]\}\\
+      &= \lim_{t\to 0}\frac{\arcsin\sqrt{\frac{t}{t + b}}}{\arcsin\sqrt{\frac{t}{t + a}}}\\
+      &= \lim_{t\to 0}\frac{\sqrt{\frac{t}{t + b}}}{\sqrt{\frac{t}{t + a}}}\quad\text{[use l'H\^{o}pital's rule if it's not obvious]}\\
+      &= \sqrt{\frac{a}{b}}.
+    \end{align*}
+    You should check that this result makes sense for the case $a = b$ and the limit $b \to \infty$ (with $a$ finite).
+    \item \textbf{Probability distributions}\\
+    In the lecture we argued using the reflection principle that
+    $$
+    \text{Pr}\{M(t) > z\} = 2\text{Pr}\{B(t) > z\}
+    $$
+    Thus we see
+    \begin{align*}
+      \text{Pr}\{M(t) \leq z\}
+      &= 1 - 2\text{Pr}\{B(t) > z\}\\
+      &= [1 - \text{Pr}\{B(t) > z\}] - \text{Pr}\{B(t) > z\}\\
+      &= \text{Pr}\{B(t) \leq z\} - \text{Pr}\{B(t) < -z\}\quad\text{[using symmetry of Brownian motion]}\\
+      &= \text{Pr}\{|B(t)| \leq z\}
+    \end{align*}
+    i.e., $M(t)$ and have the same marginal probability distribution:
+    $$
+    \text{Pr}\{M(t) \leq z\} = \text{Pr}\{|B(t)| \leq z\} = \int_{-z}^z\frac{1}{\sqrt{t}}\phi\left(\frac{x}{\sqrt{t}}\right)dx.
+    $$
+    Differentiating with respect to z yields the probability density function,
+    \begin{align*}
+      f_{M(t)}(z)
+      &= \frac{1}{\sqrt{t}}\phi\left(\frac{z}{\sqrt{t}}\right) + \frac{1}{\sqrt{t}}\phi\left(\frac{-z}{\sqrt{t}}\right)\\
+      &= \frac{2}{\sqrt{t}}\phi\left(\frac{z}{\sqrt{t}}\right)\quad\text{for $t > 0$}
+    \end{align*}
+    Armed with knowledge of the p.d.f., calculation of the mean is straightforward
+    \begin{align*}
+      E[M(t)]
+      &= \int_0^\infty xf_{M(t)}(x)dz\\
+      &= \frac{2}{\sqrt{t}}\int_0^\infty x\phi\left(\frac{x}{\sqrt{t}}\right)dx\\
+      &= \frac{2}{\sqrt{t}}\int_0^\infty x\frac{1}{\sqrt{2\pi}}e^{-x^2/2t}dx\\
+      &= \sqrt{\frac{2}{\pi t}}\left[-te^{-x^2/2t}\right]_{x = 0}^{x = \infty}\\
+      &= \sqrt{\frac{2t}{\pi}}.
+    \end{align*}
+    For $0 < x < z$, $(M(s), M(t))$ do not have the same joint distribution as $|B(s)|, |B(t)|$. To see this notice that $M(t)$ depends on the entire history up to time $t$. So, for example, if $M(s) \geq z$ it follows automatically that $M(t) \geq z$ whereas $|B(s)| \geq z$ does not necessarily impose 1B $|B(t)| \geq z$.
+    \item \textbf{More reflection principle}\\
+    For $0 < z < z$, the reflection principle states that for every sample path with $M(t) \geq z$ and $B(t)\leq x$  there is an equally likely sample path with $M(t) \geq z$ and $B(t) \geq z + (z - x)$, in other words
+    \begin{align*}
+      \text{Pr}\{M(t) \geq z, B(t)\leq x\}
+      &= \text{Pr}\{M(t) \geq z, B(t)\geq z + (z - z)\}\\
+      &= \text{Pr}\{B(t) \geq 2z - x\}\quad \text{[all with $B(t)\geq 2z - x$ have $M(t) \geq z$]}\\
+      &= 1 - \text{Pr}\{B(t) \leq 2z - x\}\\
+      &= 1 - \Phi\left(\frac{2z - x}{\sqrt{t}}\right)\quad\text{for $0 < x < z$}.
+    \end{align*}
+    Note the typo in the question - the "$m$" at the bottom of page 497 should obviously be a "$z$".
+    Notice also that the question continues overleaf... 
+    \begin{align*}
+      f_{M(t), B(t)}(z,x)
+      &= -\frac{\partial}{\partial z}\frac{\partial}{\partial x}\left[1 - \Phi\left(\frac{2z - x}{\sqrt{t}}\right)\right]\\
+      &= -\frac{\partial}{\partial z}\frac{1}{\sqrt{t}}\phi\left(\frac{2z - x}{\sqrt{t}}\right)\\
+      &= -\frac{1}{\sqrt{t}}\frac{2}{\sqrt{t}}\phi^\prime\left(\frac{2z - x}{\sqrt{t}}\right)\\
+      &= \frac{2}{t}\left(\frac{2z - x}{\sqrt{t}}\right)\phi\left(\frac{2z - x}{\sqrt{t}}\right)\quad\text{[using that $\phi^\prime(x) = -x\phi(x)$]}\\
+      &= \frac{2z - x}{t}\frac{2}{\sqrt{t}}\phi\left(\frac{2z - x}{\sqrt{t}}\right).
+    \end{align*}
+  \end{enumerate}
 \end{document}
